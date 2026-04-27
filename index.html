@@ -4,358 +4,60 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sign in to Enfinity - Cloud HRMS, ERP & Business Software</title>
-<meta name="description" content="Login to Enfinity, the #1 choice for Cloud HRMS, ERP and business software in MENA." />
 <style>
-  :root {
-    --enfinity-blue: #0d3b75;
-    --enfinity-blue-dark: #0a2e5c;
-    --enfinity-cloud: rgba(255,255,255,0.45);
-    --text: #0f172a;
-    --muted: #64748b;
-    --border: #e2e8f0;
-    --panel: #f8fafc;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    color: var(--text);
-    background: #fff;
-  }
-
-  .container {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  .left {
-    position: relative;
-    width: 50%;
-    min-height: 100vh;
-    background: var(--enfinity-blue);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cloud {
-    position: absolute;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .cloud svg {
-    width: 100%;
-    height: auto;
-    fill: var(--enfinity-cloud);
-  }
-
-  .c1 { top: 8%; left: 8%; width: 130px; animation: floatSlow 13s ease-in-out infinite; }
-  .c2 { top: 25%; right: 12%; width: 160px; animation: floatFast 9s ease-in-out infinite; }
-  .c3 { bottom: 18%; left: 15%; width: 190px; animation: floatFast 11s ease-in-out infinite; }
-  .c4 { bottom: 30%; right: 8%; width: 150px; animation: floatSlow 14s ease-in-out infinite; }
-  .c5 { top: 50%; left: 35%; width: 100px; opacity: 0.35; animation: floatSlow 16s ease-in-out infinite; }
-
-  @keyframes floatFast {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(20px, -10px); }
-  }
-
-  @keyframes floatSlow {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(-25px, 8px); }
-  }
-
-  .slider {
-    position: relative;
-    z-index: 2;
-    width: 80%;
-    max-width: 560px;
-    aspect-ratio: 1 / 1;
-  }
-
-  .slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity 0.7s ease;
-  }
-
-  .slide.active {
-    opacity: 1;
-  }
-
-  .dots {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    z-index: 3;
-    display: flex;
-    gap: 8px;
-    transform: translateX(-50%);
-  }
-
-  .dot {
-    width: 8px;
-    height: 6px;
-    border: 0;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.5);
-    cursor: pointer;
-    transition: width 0.3s, background 0.3s;
-  }
-
-  .dot.active {
-    width: 32px;
-    background: #fff;
-  }
-
-  .right {
-    position: relative;
-    flex: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 48px 24px 96px;
-    background: #fff;
-  }
-
-  .form-wrap {
-    width: 100%;
-    max-width: 420px;
-  }
-
-  .logo-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 128px;
-    margin-bottom: 16px;
-  }
-
-  .logo-wrap img {
-    height: 128px;
-    width: auto;
-    display: block;
-  }
-
-  .logo-text {
-    display: none;
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: 0;
-    color: var(--text);
-  }
-
-  .logo-text span {
-    color: var(--enfinity-blue);
-  }
-
-  h1 {
-    margin-bottom: 8px;
-    font-size: 32px;
-    line-height: 1.2;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .subtitle {
-    margin-bottom: 40px;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.5;
-    text-align: center;
-  }
-
-  .field {
-    margin-bottom: 20px;
-  }
-
-  .field label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .field input {
-    width: 100%;
-    height: 44px;
-    padding: 0 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .field input:focus {
-    border-color: var(--enfinity-blue);
-    box-shadow: 0 0 0 2px rgba(13,59,117,0.15);
-  }
-
-  .forgot {
-    margin-bottom: 16px;
-    text-align: right;
-  }
-
-  .forgot a {
-    color: var(--enfinity-blue);
-    font-size: 14px;
-    text-decoration: none;
-  }
-
-  .forgot a:hover {
-    text-decoration: underline;
-  }
-
-  .btn {
-    width: 100%;
-    height: 48px;
-    border: 0;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-  }
-
-  .btn-primary {
-    background: var(--enfinity-blue);
-    color: #fff;
-  }
-
-  .btn-primary:hover {
-    background: var(--enfinity-blue-dark);
-  }
-
-  .btn-outline {
-    border: 1px solid var(--border);
-    background: #fff;
-    color: var(--text);
-  }
-
-  .btn-outline:hover {
-    background: var(--panel);
-  }
-
-  .ms-icon {
-    width: 20px;
-    height: 20px;
-    flex: 0 0 auto;
-  }
-
-  footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 24px;
-    padding: 0 24px;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  footer a {
-    color: var(--muted);
-    text-decoration: underline;
-  }
-
-  @media (max-width: 900px) {
-    .left {
-      width: 46%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      display: block;
-    }
-
-    .left {
-      display: none;
-    }
-
-    .right {
-      min-height: 100vh;
-      padding: 36px 20px 96px;
-    }
-
-    h1 {
-      font-size: 28px;
-    }
-
-    .subtitle {
-      margin-bottom: 32px;
-    }
-  }
+:root{--blue:#0d3b75;--blue-dark:#0a2e5c;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--panel:#f8fafc;--green:#22c55e;--orange:#f97316}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:#fff}
+.container{display:flex;min-height:100vh}
+.left{position:relative;width:50%;min-height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 18% 20%,rgba(255,255,255,.2),transparent 18%),linear-gradient(145deg,#0d3b75 0%,#0b4f95 52%,#0a2e5c 100%)}
+.cloud{position:absolute;width:140px;height:46px;border-radius:999px;background:rgba(255,255,255,.36);animation:drift 13s ease-in-out infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}.cloud:before{width:58px;height:58px;left:24px;top:-28px}.cloud:after{width:76px;height:76px;right:18px;top:-42px}
+.cloud.one{top:12%;left:10%;transform:scale(.9)}.cloud.two{top:30%;right:8%;transform:scale(1.1);animation-duration:10s}.cloud.three{bottom:18%;left:14%;transform:scale(1.25);animation-duration:15s}.cloud.four{bottom:34%;right:14%;transform:scale(.75);animation-duration:17s;opacity:.7}
+@keyframes drift{0%,100%{translate:0 0}50%{translate:22px -12px}}
+.showcase{position:relative;z-index:2;width:min(78%,560px);aspect-ratio:1/1;display:grid;place-items:center}
+.orbit{position:absolute;width:88%;height:88%;border:1px solid rgba(255,255,255,.25);border-radius:50%;animation:spin 18s linear infinite}.orbit.small{width:62%;height:62%;animation-duration:12s;animation-direction:reverse}@keyframes spin{to{rotate:360deg}}
+.product-card{position:absolute;width:230px;min-height:118px;border:1px solid rgba(255,255,255,.45);border-radius:14px;padding:16px;background:rgba(255,255,255,.92);box-shadow:0 20px 48px rgba(5,20,44,.25);animation:floatCard 7s ease-in-out infinite}
+.product-card.primary{width:300px;min-height:190px;display:flex;flex-direction:column;gap:14px;animation-duration:6s}.product-card.payroll{top:9%;right:0;animation-delay:-1.4s}.product-card.hr{left:0;bottom:13%;animation-delay:-2.7s}@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.card-top{display:flex;align-items:center;gap:10px}.icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;background:var(--blue);font-weight:700}.icon.green{background:var(--green)}.icon.orange{background:var(--orange)}
+.kicker{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.card-title{margin-top:2px;font-size:17px;font-weight:700}.bars{display:grid;gap:9px}.bar{height:9px;overflow:hidden;border-radius:999px;background:#e5edf7}.bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#38bdf8,#0d3b75);animation:loadBar 4s ease-in-out infinite}.bar:nth-child(2) span{width:74%;animation-delay:-1s}.bar:nth-child(3) span{width:88%;animation-delay:-2s}@keyframes loadBar{0%,100%{width:42%}50%{width:92%}}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{border-radius:10px;padding:10px 8px;background:#f1f5f9;text-align:center}.metric strong{display:block;font-size:16px;color:var(--blue)}.metric span{color:var(--muted);font-size:10px}.mini-line{margin-top:12px;height:8px;border-radius:999px;background:linear-gradient(90deg,#dbeafe 35%,#60a5fa 35% 72%,#dbeafe 72%)}
+.right{position:relative;flex:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px 96px;background:#fff}.form-wrap{width:100%;max-width:420px}.logo-wrap{margin-bottom:20px;text-align:center}.logo{display:inline-flex;align-items:baseline;gap:2px;font-size:38px;font-weight:750;color:var(--text)}.logo span{color:var(--blue)}
+h1{margin-bottom:8px;font-size:32px;line-height:1.2;font-weight:600;text-align:center}.subtitle{margin-bottom:40px;color:var(--muted);font-size:15px;line-height:1.5;text-align:center}
+.field{margin-bottom:20px}.field label{display:block;margin-bottom:8px;font-size:14px;font-weight:500}.field input{width:100%;height:44px;padding:0 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}.field input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(13,59,117,.15)}
+.forgot{margin-bottom:16px;text-align:right}.forgot a{color:var(--blue);font-size:14px;text-decoration:none}.forgot a:hover{text-decoration:underline}
+.btn{width:100%;height:48px;border:0;border-radius:6px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:16px;font-weight:500;cursor:pointer;transition:background .2s}.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue-dark)}.btn-outline{border:1px solid var(--border);background:#fff;color:var(--text)}.btn-outline:hover{background:var(--panel)}.ms-icon{width:20px;height:20px;flex:0 0 auto}
+footer{position:absolute;left:0;right:0;bottom:24px;padding:0 24px;color:var(--muted);font-size:12px;line-height:1.6;text-align:center}footer a{color:var(--muted);text-decoration:underline}
+@media(max-width:900px){.left{width:46%}.product-card{width:200px}.product-card.primary{width:260px}}
+@media(max-width:768px){.container{display:block}.left{display:none}.right{min-height:100vh;padding:36px 20px 96px}h1{font-size:28px}.subtitle{margin-bottom:32px}}
 </style>
 </head>
 <body>
 <div class="container">
   <aside class="left" aria-hidden="true">
-    <div class="cloud c1"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
-    <div class="cloud c2"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
-    <div class="cloud c3"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
-    <div class="cloud c4"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
-    <div class="cloud c5"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
-
-    <div class="slider">
-      <img class="slide active" src="assets/anim1.gif" alt="" onerror="this.style.display='none';" />
-      <img class="slide" src="assets/anim2.gif" alt="" onerror="this.style.display='none';" />
-      <img class="slide" src="assets/anim3.gif" alt="" onerror="this.style.display='none';" />
-    </div>
-
-    <div class="dots">
-      <button class="dot active" type="button" data-i="0" aria-label="Slide 1"></button>
-      <button class="dot" type="button" data-i="1" aria-label="Slide 2"></button>
-      <button class="dot" type="button" data-i="2" aria-label="Slide 3"></button>
+    <div class="cloud one"></div><div class="cloud two"></div><div class="cloud three"></div><div class="cloud four"></div>
+    <div class="showcase">
+      <div class="orbit"></div><div class="orbit small"></div>
+      <div class="product-card primary">
+        <div class="card-top"><div class="icon">E</div><div><div class="kicker">Cloud Suite</div><div class="card-title">Enfinity ERP</div></div></div>
+        <div class="bars"><div class="bar"><span></span></div><div class="bar"><span></span></div><div class="bar"><span></span></div></div>
+        <div class="metrics"><div class="metric"><strong>HR</strong><span>Core</span></div><div class="metric"><strong>ERP</strong><span>Ops</span></div><div class="metric"><strong>BI</strong><span>Live</span></div></div>
+      </div>
+      <div class="product-card payroll"><div class="card-top"><div class="icon green">P</div><div><div class="kicker">Payroll</div><div class="card-title">Monthly Run</div></div></div><div class="mini-line"></div></div>
+      <div class="product-card hr"><div class="card-top"><div class="icon orange">H</div><div><div class="kicker">HRMS</div><div class="card-title">People Cloud</div></div></div><div class="mini-line"></div></div>
     </div>
   </aside>
 
   <main class="right">
     <div class="form-wrap">
-      <div class="logo-wrap">
-        <img src="assets/logo.png" alt="Enfinity logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-        <div class="logo-text">en<span>finity</span></div>
-      </div>
-
+      <div class="logo-wrap"><div class="logo">en<span>finity</span></div></div>
       <h1>Welcome to Enfinity!</h1>
       <p class="subtitle">The #1 Choice for Cloud HRMS, ERP &amp; Business Software in MENA</p>
 
       <form id="loginForm">
-        <div class="field">
-          <label for="username">Username</label>
-          <input id="username" type="text" autocomplete="username" required />
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" autocomplete="off" required />
-        </div>
-
+        <div class="field"><label for="username">Username</label><input id="username" type="text" autocomplete="username" required /></div>
+        <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="off" required /></div>
         <div class="forgot"><a href="#" id="forgotLink">Forgot Password?</a></div>
-
         <button type="submit" class="btn btn-primary">Sign In</button>
-
         <button type="button" class="btn btn-outline" id="microsoftButton">
           <svg class="ms-icon" viewBox="0 0 24 24" aria-hidden="true">
             <rect width="10" height="10" x="1" y="1" fill="#F25022" />
@@ -376,95 +78,35 @@
 </div>
 
 <script>
-  const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-  const REDIRECT_URL = "https://shabbirspro.github.io/portalsss/";
+const REDIRECT_URL = "https://shabbirspro.github.io/portalsss/";
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+function completeAwarenessFlow(requireValidForm) {
+  const form = document.getElementById("loginForm");
+  const passwordInput = document.getElementById("password");
 
-  const slides = Array.from(document.querySelectorAll(".slide"));
-  const dots = Array.from(document.querySelectorAll(".dot"));
-  let activeSlide = 0;
-
-  function showSlide(index) {
-    if (!slides.length || !dots.length) return;
-    slides[activeSlide].classList.remove("active");
-    dots[activeSlide].classList.remove("active");
-    activeSlide = index;
-    slides[activeSlide].classList.add("active");
-    dots[activeSlide].classList.add("active");
+  if (requireValidForm && !form.checkValidity()) {
+    form.reportValidity();
+    return;
   }
 
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => showSlide(Number(dot.dataset.i)));
-  });
+  passwordInput.value = "";
+  alert("Security Awareness Test\n\nThis was an internal security test. No password was collected.");
+  window.location.href = REDIRECT_URL;
+}
 
-  window.setInterval(() => {
-    showSlide((activeSlide + 1) % slides.length);
-  }, 6000);
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  completeAwarenessFlow(true);
+});
 
-  async function sendAttempt(payload) {
-    if (!FORM_ENDPOINT || FORM_ENDPOINT.includes("YOUR_FORM_ID")) return;
+document.getElementById("microsoftButton").addEventListener("click", function() {
+  completeAwarenessFlow(false);
+});
 
-    try {
-      await fetch(FORM_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(payload),
-        keepalive: true
-      });
-    } catch (error) {
-      // The awareness message and redirect should still happen if tracking fails.
-    }
-  }
-
-  async function completeAwarenessFlow(method) {
-    const form = document.getElementById("loginForm");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-
-    if (method === "password" && !form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    const username = usernameInput.value.trim();
-
-    const payload = {
-      email: username,
-      username: username,
-      action: "login_attempt",
-      method: method,
-      time: new Date().toISOString(),
-      page: window.location.href,
-      device: navigator.userAgent
-    };
-
-    passwordInput.value = "";
-
-    await Promise.race([
-      sendAttempt(payload),
-      new Promise((resolve) => window.setTimeout(resolve, 800))
-    ]);
-
-    alert("Security Awareness Test\n\nThis was an internal security test. No password was collected.");
-    window.location.href = REDIRECT_URL;
-  }
-
-  document.getElementById("loginForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-    completeAwarenessFlow("password");
-  });
-
-  document.getElementById("microsoftButton").addEventListener("click", () => {
-    completeAwarenessFlow("microsoft");
-  });
-
-  document.getElementById("forgotLink").addEventListener("click", (event) => {
-    event.preventDefault();
-  });
+document.getElementById("forgotLink").addEventListener("click", function(event) {
+  event.preventDefault();
+});
 </script>
 </body>
 </html>
