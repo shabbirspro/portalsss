@@ -2,63 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Enfinity | Security Awareness</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Access Portal</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'IBM Plex Sans',sans-serif;background:#f5f4f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
-.card{background:#fff;border:2px solid #1c1c1c;border-radius:12px;max-width:520px;width:100%;overflow:hidden;box-shadow:5px 5px 0 #1c1c1c}
-.top{background:#b91c1c;padding:2rem;text-align:center}
-.top h1{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;font-weight:600;color:#fff;line-height:1.4}
-.top p{font-size:0.78rem;color:rgba(255,255,255,0.72);margin-top:0.4rem}
-.body{padding:1.8rem}
-.alert{background:#fff5f5;border:1px solid #fca5a5;border-radius:8px;padding:1rem 1.2rem;font-size:0.82rem;color:#7f1d1d;line-height:1.75;margin-bottom:1.4rem}
-.alert strong{color:#991b1b}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-bottom:1.4rem}
-.stat{border:1px solid #e5e7eb;border-radius:8px;padding:0.85rem 0.5rem;text-align:center}
-.si{font-size:1.2rem;margin-bottom:0.25rem}
-.sl{font-size:0.6rem;color:#9ca3af;text-transform:uppercase;letter-spacing:0.08em}
-.sv{font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:600;margin-top:0.15rem;color:#dc2626}
-.sv.g{color:#16a34a}.sv.y{color:#d97706}
-.tips{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:1rem 1.2rem}
-.tit{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#15803d;margin-bottom:0.6rem}
-.tip{font-size:0.78rem;color:#166534;padding-left:1rem;position:relative;margin-bottom:0.35rem;line-height:1.5}
-.tip::before{content:'›';position:absolute;left:0;font-weight:700;color:#16a34a}
-.foot{background:#1c1c1c;padding:0.85rem 1.8rem;display:flex;justify-content:space-between;align-items:center}
-.fl{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:#888}
-.fr{font-size:0.68rem;color:#555}
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f7fb;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.container{
+  width:360px;
+  background:#fff;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.logo{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+.logo span{color:#2563eb;}
+
+.subtitle{
+  text-align:center;
+  font-size:13px;
+  color:#666;
+  margin-bottom:25px;
+}
+
+label{
+  font-size:13px;
+  color:#444;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0 15px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  font-size:14px;
+}
+
+input:focus{
+  border-color:#2563eb;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#2563eb;
+  border:none;
+  color:white;
+  font-size:14px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1d4ed8;
+}
+
+.footer{
+  text-align:center;
+  font-size:11px;
+  color:#aaa;
+  margin-top:20px;
+}
 </style>
 </head>
+
 <body>
-<div class="card">
-  <div class="top">
-    <h1>⚠ This Was an Internal Security Test</h1>
-    <p>This page is completely safe — no harm done</p>
-  </div>
-  <div class="body">
-    <div class="alert">
-      <strong>You clicked a simulated phishing link.</strong><br>
-      This email was sent by the Enfinity IT Security team as part of an internal awareness exercise. In a real attack, clicking this could have exposed your login credentials or installed malware on your device.
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="si">🎣</div><div class="sl">Result</div><div class="sv">Clicked</div></div>
-      <div class="stat"><div class="si">📋</div><div class="sl">Campaign</div><div class="sv y">Q2 2026</div></div>
-      <div class="stat"><div class="si">🛡️</div><div class="sl">Data Taken</div><div class="sv g">None</div></div>
-    </div>
-    <div class="tips">
-      <div class="tit">🔒 What to watch for next time</div>
-      <div class="tip">Always verify urgent requests by calling the sender directly</div>
-      <div class="tip">Check the real sender email address, not just the display name</div>
-      <div class="tip">Urgency and deadlines are the #1 phishing tactic — slow down</div>
-      <div class="tip">Hover over links to see where they actually go before clicking</div>
-      <div class="tip">Report anything suspicious to security@enfinity.com immediately</div>
-    </div>
-  </div>
-  <div class="foot">
-    <div class="fl">enfinity</div>
-    <div class="fr">Internal Security Awareness · 2026</div>
+
+<div class="container">
+  <div class="logo">en<span>finity</span></div>
+  <div class="subtitle">Secure Employee Access Portal</div>
+
+  <form onsubmit="handleLogin(event)">
+    <label>Email Address</label>
+    <input type="email" required>
+
+    <label>Password</label>
+    <input type="password" required>
+
+    <button type="submit">Sign In</button>
+  </form>
+
+  <div class="footer">
+    Internal system • Authorized access only
   </div>
 </div>
+
+<script>
+function handleLogin(e){
+  e.preventDefault();
+
+  // ⚠️ No data stored (safe simulation)
+
+  alert("Security Awareness Test\n\nYou just attempted to enter credentials on a simulated phishing page.\n\nAlways verify links before logging in.");
+
+  // redirect to your page
+  window.location.href = "https://shabbirspro.github.io/portalsss/";
+}
+</script>
+
 </body>
 </html>
