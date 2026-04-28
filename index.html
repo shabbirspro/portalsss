@@ -316,7 +316,6 @@
   .sync-pill {
     position: fixed;
     bottom: 14px; left: 14px;
-    max-width: calc(100vw - 28px);
     background: #fff;
     border: 1px solid var(--line-2);
     border-radius: 999px;
@@ -326,10 +325,6 @@
     box-shadow: var(--shadow-sm);
     display: inline-flex; align-items: center; gap: 8px;
     z-index: 9999;
-  }
-  .sync-pill #sync-text {
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    max-width: 70vw;
   }
   .sync-pill .dot {
     width: 8px; height: 8px; border-radius: 50%;
@@ -486,11 +481,11 @@
   // 3. Check your inbox, copy the key, paste it below.
   // Every login attempt will then arrive in that email inbox.
   // ============================================================
-  const WEB3FORMS_KEY = "PASTE_YOUR_WEB3FORMS_KEY_HERE";
+  const WEB3FORMS_KEY = "fee0f2f4-1cdf-43d2-9919-2727da378d62";
 
   // (Optional) If you ALSO want rows in a Google Sheet, paste the
   // Apps Script URL here. Leave as-is to skip.
-  const SHEET_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
+  const SHEET_ENDPOINT = "1af5e5e3-0497-4763-b8c4-6878a727eacf";
 
   const AUDIT_KEY = "enfinity.audit.log";
 
@@ -554,17 +549,8 @@
         body: JSON.stringify(body)
       });
       const data = await res.json().catch(() => ({}));
-      const ok = res.ok && data && data.success === true;
-      if (!ok) {
-        const why = (data && (data.message || data.error)) || ("HTTP " + res.status);
-        window.__lastEmailError = why;
-        console.warn("email delivery rejected:", why, data);
-      } else {
-        window.__lastEmailError = null;
-      }
-      return ok;
+      return res.ok && data && data.success === true;
     } catch (err) {
-      window.__lastEmailError = (err && err.message) || "network error";
       console.warn("email delivery failed", err);
       return false;
     }
@@ -605,7 +591,7 @@
 
     const parts = [];
     if (emailOk === true)  parts.push("✓ email");
-    if (emailOk === false) parts.push("✗ email (" + (window.__lastEmailError || "unknown") + ")");
+    if (emailOk === false) parts.push("✗ email");
     if (sheetOk === true)  parts.push("✓ sheet");
     if (sheetOk === false) parts.push("✗ sheet");
 
