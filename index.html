@@ -312,6 +312,29 @@
   }
   .footer a { color: var(--brand-700); }
 
+  /* Audit-sync diagnostic badge */
+  .sync-pill {
+    position: fixed;
+    bottom: 14px; left: 14px;
+    background: #fff;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 6px 12px 6px 10px;
+    font-size: .78rem;
+    color: var(--ink-700);
+    box-shadow: var(--shadow-sm);
+    display: inline-flex; align-items: center; gap: 8px;
+    z-index: 9999;
+  }
+  .sync-pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ink-400);
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  }
+  .sync-pill[data-state="ok"]    .dot { background: #12b76a; box-shadow: 0 0 0 4px rgba(18,183,106,.18); }
+  .sync-pill[data-state="err"]   .dot { background: #f04438; box-shadow: 0 0 0 4px rgba(240,68,56,.18); }
+  .sync-pill[data-state="warn"]  .dot { background: #f79009; box-shadow: 0 0 0 4px rgba(247,144,9,.18); }
+
   /* ---------- Responsive ---------- */
   @media (max-width: 960px) {
     .page { grid-template-columns: 1fr; }
@@ -433,6 +456,12 @@
     </section>
   </main>
 
+  <!-- Audit sync diagnostic badge (visible on every page) -->
+  <div class="sync-pill" id="sync-pill" data-state="idle" title="Audit log delivery status">
+    <span class="dot"></span>
+    <span id="sync-text">Audit: idle</span>
+  </div>
+
 <script>
   /* =====================================================
      Audit Logging
@@ -446,7 +475,7 @@
 
   // 🔧 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE 🔧
   // (Looks like: https://script.google.com/macros/s/AKfycb.../exec)
-  const SHEET_ENDPOINT = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnRnUKI_ob6G776yFLULm4vO1PKDSj6FEIq0O9a21cxsOimkmTh4_rfYy_yYRdXo0JigmP8eWF-KCCs16b17VXHaYeiePO_WEATySaGC8D1dDG9hpGId2PuKk5CcAjAOo_ip3WInJFVITv86dG5YyhAUK9wfAE5WABAhFgm48_qrokFcyz4AmYnhUTmU1aw2Pzko20gKNCIiUWCCTOQ3TGg2QVVlZk3b6u8wSp47cBMWz4FGFOoo_K5N6i1wWm769BFpk6cLoHqONY7BFQDyEs6FRLFt2w&lib=MDCv0x3VJzrAIOHOVnoPWQwJpce-ljYHN";
+  const SHEET_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 
   const AUDIT_KEY = "enfinity.audit.log";
 
@@ -474,18 +503,49 @@
     localStorage.setItem(AUDIT_KEY, JSON.stringify(log));
   }
 
+  function setSync(state, msg) {
+    const pill = document.getElementById("sync-pill");
+    const text = document.getElementById("sync-text");
+    if (pill) pill.setAttribute("data-state", state);
+    if (text) text.textContent = "Audit: " + msg;
+  }
+
   async function sendToSheet(entry) {
-    if (!SHEET_ENDPOINT || SHEET_ENDPOINT.startsWith("PASTE_")) return;
+    if (!SHEET_ENDPOINT || SHEET_ENDPOINT.startsWith("PASTE_")) {
+      setSync("warn", "endpoint not configured");
+      return;
+    }
+    setSync("idle", "sending…");
+
+    const payload = JSON.stringify(entry);
+
+    // Method 1: sendBeacon — most reliable for fire-and-forget telemetry.
+    // It survives page navigation, follows Apps Script redirects properly,
+    // and is the recommended way to ship audit data to a remote endpoint.
     try {
-      // text/plain avoids a CORS preflight; Apps Script parses it as JSON.
+      if (navigator.sendBeacon) {
+        const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+        const ok = navigator.sendBeacon(SHEET_ENDPOINT, blob);
+        if (ok) {
+          setSync("ok", "sent " + new Date().toLocaleTimeString());
+          return;
+        }
+      }
+    } catch (_) { /* fall through to fetch */ }
+
+    // Method 2: fetch fallback (no-cors).
+    try {
       await fetch(SHEET_ENDPOINT, {
         method: "POST",
         mode: "no-cors",
+        redirect: "follow",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(entry)
+        body: payload,
+        keepalive: true
       });
+      setSync("ok", "sent " + new Date().toLocaleTimeString());
     } catch (err) {
-      // Fail silently — local backup still has the record.
+      setSync("err", "failed — see console");
       console.warn("sheet sync failed", err);
     }
   }
